@@ -1,100 +1,123 @@
 :root {
-    --primary: #6366f1;
+    --brand: #7047eb;
+    --brand-light: #8e6ef2;
+    --bg-main: #f8faff;
+    --bg-card: #ffffff;
+    --text-primary: #1a1b21;
+    --text-muted: #6b7280;
+    --success: #10b981;
     --danger: #ef4444;
-    --bg: #f8fafc;
-    --card: #ffffff;
-    --text: #1e293b;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.04), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-
 body { 
-    font-family: 'Inter', sans-serif; 
-    background: var(--bg); 
-    color: var(--text); 
-    line-height: 1.5;
+    font-family: 'Ubuntu', sans-serif; 
+    background: var(--bg-main); 
+    color: var(--text-primary); 
+    overflow-x: hidden; 
 }
 
-.app-container { display: flex; min-height: 100vh; }
+.app-shell { display: flex; min-height: 100vh; }
 
-/* Sidebar Logic */
-.sidebar {
-    width: 320px; background: var(--card); padding: 2rem;
-    border-right: 1px solid #e2e8f0; position: sticky; top: 0; height: 100vh;
+/* Side Navigation */
+.side-nav {
+    width: 80px; background: var(--brand); display: flex; flex-direction: column;
+    align-items: center; justify-content: space-between; padding: 2rem 0;
+    border-radius: 0 30px 30px 0; position: sticky; top: 0; height: 100vh;
+    z-index: 1000;
 }
+.nav-brand { font-size: 1.5rem; color: white; }
+.nav-links { display: flex; flex-direction: column; gap: 2rem; color: rgba(255,255,255,0.5); }
+.nav-links a { color: inherit; text-decoration: none; transition: 0.3s; }
+.nav-links a.active { color: white; background: rgba(255,255,255,0.15); padding: 12px; border-radius: 15px; }
+.nav-user img { width: 45px; border-radius: 12px; border: 2px solid white; }
 
-.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 2rem; }
-.input-group { margin-bottom: 1rem; }
-label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; }
-input, select { width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 16px; }
+/* Main Content Area */
+.content-area { flex: 1; padding: 2.5rem; max-width: 1400px; margin: 0 auto; width: 100%; }
 
-.btn-primary { 
-    width: 100%; padding: 0.8rem; background: var(--primary); color: white;
-    border: none; border-radius: 8px; cursor: pointer; font-weight: 600; 
-}
-
-/* Dashboard Layout */
-.main-content { flex: 1; padding: 2rem; overflow-x: hidden; }
-.stats-header { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
-.stat-card { background: var(--card); padding: 1.2rem; border-radius: 12px; flex: 1; min-width: 200px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-
-.btn-secondary { 
-    background: #475569; color: white; border: none; padding: 0.8rem; 
-    border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600;
-}
-
-/* Spending & Transactions Section */
-.visuals { 
-    display: grid; 
-    grid-template-columns: 1fr 1fr; /* Side by side on desktop */
-    gap: 1.5rem; 
-    width: 100%;
-}
-
-.chart-box, .history-box { 
-    background: var(--card); 
-    padding: 1.5rem; 
-    border-radius: 12px; 
-    min-height: 450px; 
+.main-header { 
     display: flex; 
-    flex-direction: column; 
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 3rem; 
+    flex-wrap: wrap; 
+    gap: 1.5rem; 
+}
+.greeting h1 { font-size: 2.2rem; font-weight: 700; margin-bottom: 0.5rem; }
+.greeting p { color: var(--text-muted); }
+
+/* Styled Export Button */
+.btn-outline {
+    background: white;
+    border: 1.5px solid #e5e7eb;
+    color: var(--text-primary);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Ubuntu';
+}
+.btn-outline i { color: var(--brand); width: 18px; }
+.btn-outline:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
 }
 
-/* Critical Fix for Chart Responsiveness */
-.canvas-wrapper { 
-    flex: 1; 
-    position: relative; 
-    width: 100%; 
-    min-height: 300px; /* Prevents chart from collapsing */
+/* Dashboard Layout Grid */
+.dashboard-layout { display: grid; grid-template-columns: 1.4fr 1fr; gap: 2.5rem; }
+
+.card { background: var(--bg-card); border-radius: 24px; padding: 2rem; box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02); }
+h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px; }
+
+/* KPI Card */
+.kpi-card { background: var(--brand); color: white; border-radius: 24px; padding: 2rem; margin-bottom: 2rem; position: relative; overflow: hidden; }
+.kpi-card h2 { font-size: 2.5rem; margin: 10px 0; }
+.progress-bar { height: 6px; background: rgba(255,255,255,0.2); border-radius: 10px; margin: 15px 0; overflow: hidden; }
+.progress-bar .fill { height: 100%; background: white; width: 0%; transition: 1s ease; }
+
+/* Form Elements */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+.full-width { grid-column: span 2; }
+.field label { display: block; font-size: 0.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 8px; text-transform: uppercase; }
+input, select { 
+    width: 100%; padding: 1rem; border-radius: 12px; border: 1px solid #e5e7eb; 
+    background: #f9fafb; font-family: 'Ubuntu'; font-size: 1rem; transition: 0.3s;
 }
+input:focus { border-color: var(--brand); outline: none; background: white; }
 
-#expense-list { 
-    list-style: none; 
-    overflow-y: auto; 
-    flex: 1; 
-    margin-top: 1rem;
-    max-height: 350px; 
-}
+.btn-submit { width: 100%; padding: 1.2rem; background: var(--brand); color: white; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+.btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(112, 71, 235, 0.3); }
 
-.expense-item { 
-    display: flex; justify-content: space-between; align-items: center; 
-    padding: 0.8rem 0; border-bottom: 1px solid #f1f5f9; 
-}
+/* Transaction List */
+.expense-item { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem; background: #fff; border-radius: 18px; margin-bottom: 1rem; border: 1px solid #f3f4f6; }
+.item-info b { display: block; font-size: 1rem; }
+.item-info small { color: var(--brand); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
 
-.item-right { display: flex; align-items: center; gap: 10px; font-weight: 600; }
-.delete-btn { background: #fee2e2; color: var(--danger); border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
-
-/* MOBILE RESPONSIVE QUERIES */
+/* Responsive Adjustments */
 @media (max-width: 1024px) {
-    .visuals { grid-template-columns: 1fr; } /* Stack vertically on smaller screens */
-    .app-container { flex-direction: column; }
-    .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #e2e8f0; }
-    .main-content { padding: 1.5rem; }
-    .chart-box, .history-box { min-height: 400px; }
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .side-nav { 
+        width: 100%; height: 75px; position: fixed; bottom: 0; top: auto; 
+        flex-direction: row; border-radius: 25px 25px 0 0; padding: 0 1.5rem;
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.05);
+    }
+    .nav-links { flex-direction: row; width: 100%; justify-content: space-around; gap: 0; }
+    .nav-brand, .nav-user { display: none; }
+    .content-area { padding: 1.5rem; padding-bottom: 100px; }
+    .greeting h1 { font-size: 1.8rem; }
 }
 
 @media (max-width: 600px) {
-    .stats-header { flex-direction: column; }
-    .stat-card { width: 100%; }
+    .main-header { flex-direction: column; align-items: flex-start; }
+    .header-actions { width: 100%; }
+    .btn-outline { width: 100%; justify-content: center; }
+    .form-grid { grid-template-columns: 1fr; }
+    .full-width { grid-column: auto; }
 }

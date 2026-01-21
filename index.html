@@ -3,73 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Expense Pro - India</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>SmartSpend Pro | Dashboard</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
     
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <aside class="sidebar">
-            <div class="logo">💰 SmartSpend</div>
-            <form id="expense-form">
-                <div class="input-group">
-                    <label>Description</label>
-                    <input type="text" id="desc" placeholder="e.g., Zomato Dinner" required>
-                </div>
-                <div class="input-group">
-                    <label>Amount (₹)</label>
-                    <input type="number" id="amount" step="0.01" placeholder="0.00" required>
-                </div>
-                <div class="input-group">
-                    <label>Category</label>
-                    <select id="category">
-                        <option value="Auto">✨ Auto-AI Detect</option>
-                        <option value="Food">Food & Drinks</option>
-                        <option value="Travel">Transport</option>
-                        <option value="Shopping">Shopping</option>
-                        <option value="Utilities">Bills/Utilities</option>
-                    </select>
-                </div>
-                <button type="submit" class="btn-primary">Add Transaction</button>
-            </form>
-        </aside>
+    <div class="app-shell">
+        <nav class="side-nav">
+            <div class="nav-brand"><i data-lucide="shield-check"></i></div>
+            <div class="nav-links">
+                <a href="#" class="active"><i data-lucide="layout-dashboard"></i></a>
+                <a href="#"><i data-lucide="bar-chart-3"></i></a>
+                <a href="#"><i data-lucide="history"></i></a>
+                <a href="#"><i data-lucide="settings"></i></a>
+            </div>
+            <div class="nav-user">
+                <img src="https://ui-avatars.com/api/?name=S&background=7047eb&color=fff" alt="User">
+            </div>
+        </nav>
 
-        <main class="main-content">
-            <header class="stats-header">
-                <div class="stat-card">
-                    <span>Total Spent</span>
-                    <h2 id="total-val">₹0.00</h2>
+        <main class="content-area">
+            <header class="main-header">
+                <div class="greeting">
+                    <h1>Executive Overview</h1>
+                    <p>Welcome back, Scarlett. Here is your financial summary.</p>
                 </div>
-                <div class="stat-card">
-                    <span>Budget Status</span>
-                    <h2 id="status-text">On Track</h2>
-                </div>
-                <div class="stat-card actions">
-                    <button id="download-pdf" class="btn-secondary">📥 Download PDF</button>
+                <div class="header-actions">
+                    <button id="download-pdf" class="btn-outline">
+                        <i data-lucide="file-down"></i> Export Report
+                    </button>
                 </div>
             </header>
 
-            <section class="visuals">
-                <div class="chart-box">
-                    <h3>Spending Analysis</h3>
-                    <div class="canvas-wrapper">
-                        <canvas id="expenseChart"></canvas>
+            <div class="dashboard-layout">
+                <section class="control-panel">
+                    <div class="card">
+                        <h3><i data-lucide="plus-circle"></i> Log Transaction</h3>
+                        <form id="expense-form">
+                            <div class="form-grid">
+                                <div class="field">
+                                    <label>Merchant / Item</label>
+                                    <input type="text" id="desc" placeholder="e.g., Starbucks" required>
+                                </div>
+                                <div class="field">
+                                    <label>Amount (INR)</label>
+                                    <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+                                </div>
+                                <div class="field full-width">
+                                    <label>Classification</label>
+                                    <select id="category">
+                                        <option value="Auto">✨ AI Smart Classify</option>
+                                        <option value="Food">Dining & Food</option>
+                                        <option value="Travel">Transport</option>
+                                        <option value="Shopping">Lifestyle</option>
+                                        <option value="Utilities">Fixed Bills</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-submit">Process Transaction</button>
+                        </form>
                     </div>
-                </div>
 
-                <div class="history-box">
-                    <h3>Recent Transactions</h3>
-                    <ul id="expense-list"></ul>
-                </div>
-            </section>
+                    <div class="history-section">
+                        <h3><i data-lucide="clock"></i> Recent Activity</h3>
+                        <ul id="expense-list" class="expense-list">
+                            </ul>
+                    </div>
+                </section>
+
+                <section class="analytics-panel">
+                    <div class="kpi-card">
+                        <span class="kpi-label">Total Expenditure</span>
+                        <h2 id="total-val">₹0.00</h2>
+                        <div class="progress-bar">
+                            <div id="budget-fill" class="fill"></div>
+                        </div>
+                        <p id="status-text">Account standing: Stable</p>
+                    </div>
+
+                    <div class="card chart-card">
+                        <h3><i data-lucide="pie-chart"></i> Distribution Analysis</h3>
+                        <div class="chart-wrapper">
+                            <canvas id="expenseChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </main>
     </div>
 
     <script type="module" src="firebase-config.js"></script>
     <script type="module" src="app.js"></script>
+    <script>lucide.createIcons();</script>
 </body>
 </html>
