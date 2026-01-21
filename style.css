@@ -1,0 +1,100 @@
+:root {
+    --primary: #6366f1;
+    --danger: #ef4444;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #1e293b;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+    font-family: 'Inter', sans-serif; 
+    background: var(--bg); 
+    color: var(--text); 
+    line-height: 1.5;
+}
+
+.app-container { display: flex; min-height: 100vh; }
+
+/* Sidebar Logic */
+.sidebar {
+    width: 320px; background: var(--card); padding: 2rem;
+    border-right: 1px solid #e2e8f0; position: sticky; top: 0; height: 100vh;
+}
+
+.logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); margin-bottom: 2rem; }
+.input-group { margin-bottom: 1rem; }
+label { display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.3rem; }
+input, select { width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid #cbd5e1; font-size: 16px; }
+
+.btn-primary { 
+    width: 100%; padding: 0.8rem; background: var(--primary); color: white;
+    border: none; border-radius: 8px; cursor: pointer; font-weight: 600; 
+}
+
+/* Dashboard Layout */
+.main-content { flex: 1; padding: 2rem; overflow-x: hidden; }
+.stats-header { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.stat-card { background: var(--card); padding: 1.2rem; border-radius: 12px; flex: 1; min-width: 200px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+
+.btn-secondary { 
+    background: #475569; color: white; border: none; padding: 0.8rem; 
+    border-radius: 8px; cursor: pointer; width: 100%; font-weight: 600;
+}
+
+/* Spending & Transactions Section */
+.visuals { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; /* Side by side on desktop */
+    gap: 1.5rem; 
+    width: 100%;
+}
+
+.chart-box, .history-box { 
+    background: var(--card); 
+    padding: 1.5rem; 
+    border-radius: 12px; 
+    min-height: 450px; 
+    display: flex; 
+    flex-direction: column; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Critical Fix for Chart Responsiveness */
+.canvas-wrapper { 
+    flex: 1; 
+    position: relative; 
+    width: 100%; 
+    min-height: 300px; /* Prevents chart from collapsing */
+}
+
+#expense-list { 
+    list-style: none; 
+    overflow-y: auto; 
+    flex: 1; 
+    margin-top: 1rem;
+    max-height: 350px; 
+}
+
+.expense-item { 
+    display: flex; justify-content: space-between; align-items: center; 
+    padding: 0.8rem 0; border-bottom: 1px solid #f1f5f9; 
+}
+
+.item-right { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+.delete-btn { background: #fee2e2; color: var(--danger); border: none; padding: 6px 10px; border-radius: 6px; cursor: pointer; }
+
+/* MOBILE RESPONSIVE QUERIES */
+@media (max-width: 1024px) {
+    .visuals { grid-template-columns: 1fr; } /* Stack vertically on smaller screens */
+    .app-container { flex-direction: column; }
+    .sidebar { width: 100%; height: auto; position: relative; border-right: none; border-bottom: 1px solid #e2e8f0; }
+    .main-content { padding: 1.5rem; }
+    .chart-box, .history-box { min-height: 400px; }
+}
+
+@media (max-width: 600px) {
+    .stats-header { flex-direction: column; }
+    .stat-card { width: 100%; }
+}

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Expense Pro - India</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">💰 SmartSpend</div>
+            <form id="expense-form">
+                <div class="input-group">
+                    <label>Description</label>
+                    <input type="text" id="desc" placeholder="e.g., Zomato Dinner" required>
+                </div>
+                <div class="input-group">
+                    <label>Amount (₹)</label>
+                    <input type="number" id="amount" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="input-group">
+                    <label>Category</label>
+                    <select id="category">
+                        <option value="Auto">✨ Auto-AI Detect</option>
+                        <option value="Food">Food & Drinks</option>
+                        <option value="Travel">Transport</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Utilities">Bills/Utilities</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn-primary">Add Transaction</button>
+            </form>
+        </aside>
+
+        <main class="main-content">
+            <header class="stats-header">
+                <div class="stat-card">
+                    <span>Total Spent</span>
+                    <h2 id="total-val">₹0.00</h2>
+                </div>
+                <div class="stat-card">
+                    <span>Budget Status</span>
+                    <h2 id="status-text">On Track</h2>
+                </div>
+                <div class="stat-card actions">
+                    <button id="download-pdf" class="btn-secondary">📥 Download PDF</button>
+                </div>
+            </header>
+
+            <section class="visuals">
+                <div class="chart-box">
+                    <h3>Spending Analysis</h3>
+                    <div class="canvas-wrapper">
+                        <canvas id="expenseChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="history-box">
+                    <h3>Recent Transactions</h3>
+                    <ul id="expense-list"></ul>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script type="module" src="firebase-config.js"></script>
+    <script type="module" src="app.js"></script>
+</body>
+</html>
